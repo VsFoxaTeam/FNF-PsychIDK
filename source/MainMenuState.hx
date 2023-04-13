@@ -44,7 +44,6 @@ class MainMenuState extends MusicBeatState
 	];
 	
 	private var versionShitInt:Int = 0;
-	private var array:Array<Array<Dynamic>> = [];
 	private var versionShitArray:Array<Array<Dynamic>> = [
 		["Friday Night Funkin' v", Application.current.meta.get('version')],
 		["Psych Engine v", psychEngineVersion]
