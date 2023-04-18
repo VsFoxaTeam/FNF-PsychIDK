@@ -32,7 +32,7 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
-	
+
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
@@ -42,19 +42,17 @@ class MainMenuState extends MusicBeatState
 		#if !switch 'donate', #end
 		'options'
 	];
-	
-	private var versionShitInt:Int = 0;
-	private var versionShitArray:Array<Array<Dynamic>> = [
-		["Friday Night Funkin' v", Application.current.meta.get('version')],
-		["Psych Engine v", psychEngineVersion]
+
+	private var versionShitInt:Int = 1;
+	private var versionShitArray:Array<Array<Dynamic>> = [// Name, Version, X, Y
+		["Psych Engine v", psychEngineVersion, null, null],
+		["Friday Night Funkin' v", Application.current.meta.get('version'), null, null]
 	];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 	var camFollowPos:FlxObject;
 	var debugKeys:Array<FlxKey>;
-
-	var grp:FlxTypedSpriteGroup<FlxSprite>;
 
 	override function create()
 	{
@@ -105,7 +103,7 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
-		
+
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -139,18 +137,19 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollowPos, null, 1);
 
-		grp = new FlxTypedSpriteGroup<FlxSprite>();
+		versionShitArray.reverse();
+		for (i in 0...versionShitArray.length){// ngl it looks ugly, with all the [i]s
+			if (versionShitArray[i][1] == null) versionShitArray[i][1] = "";
 
-		for (i in 0...versionShitArray.length) {
-			var versionShit:FlxText = new FlxText(12, FlxG.height - 22 + versionShitInt, 0, versionShitArray[i][0] + versionShitArray[i][1], 12);
+			var versionShit:FlxText = new FlxText(12, FlxG.height - 22 * versionShitInt, 0, versionShitArray[i][0] + versionShitArray[i][1]);
 			versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		
-			grp.add(versionShit);
+			versionShit.x += versionShitArray[i][2];
+			versionShit.y -= versionShitArray[i][3];
+			versionShit.scrollFactor.set();
+			add(versionShit);
 
-			versionShitInt -= 22;
+			versionShitInt++;
 		}
-		grp.scrollFactor.set();
-		add(grp);
 
 		// NG.core.calls.event.logEvent('swag').send();
 
