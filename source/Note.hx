@@ -8,6 +8,10 @@ import flixel.math.FlxRect;
 import flixel.util.FlxColor;
 import flash.display.BitmapData;
 import editors.ChartingState;
+#if sys
+import sys.io.File;
+import sys.FileSystem;
+#end
 
 using StringTools;
 
@@ -98,6 +102,7 @@ class Note extends FlxSprite
 
 	public var hitsoundDisabled:Bool = false;
 
+
 	private function set_multSpeed(value:Float):Float {
 		resizeByRatio(value / multSpeed);
 		multSpeed = value;
@@ -123,6 +128,7 @@ class Note extends FlxSprite
 	}
 
 	private function set_noteType(value:String):String {
+		var luaPrefix:String = '';
 		noteSplashTexture = PlayState.SONG.splashSkin;
 		if (ClientPrefs.arrowMode == 'RGB' && noteData > -1 && noteData < ClientPrefs.arrowRGB.length)
 		{
@@ -139,7 +145,7 @@ class Note extends FlxSprite
 			switch(value) {
 				case 'Hurt Note':
 					ignoreNote = mustPress;
-					reloadNote('HURT');
+					reloadNote('HURT', 'NOTE_assets');
 					noteSplashTexture = 'HURTnoteSplashes';
 					colorSwap.hue = 0;
 					colorSwap.saturation = 0;
@@ -159,6 +165,18 @@ class Note extends FlxSprite
 					noMissAnimation = true;
 				case 'GF Sing':
 					gfNote = true;
+				case '':
+					//normal notes retain the noteskin texture
+				case 'Hey!':
+					// hey notes retain the noteskin texture
+				default:
+					#if MODS_ALLOWED
+					luaPrefix = value.split(" ")[0].toUpperCase();
+					if (Paths.image(luaPrefix + 'NOTE_assets')!= null)
+						reloadNote(luaPrefix, 'NOTE_assets');
+					else
+						trace('Suggestion: rename $value texture to ${luaPrefix}NOTE_assets');
+					#end
 			}
 			noteType = value;
 		}
@@ -307,13 +325,6 @@ class Note extends FlxSprite
 				offsetX += lastNoteOffsetXForPixelAutoAdjusting;
 				lastNoteOffsetXForPixelAutoAdjusting = (width - 7) * (PlayState.daPixelZoom / 2);
 				offsetX -= lastNoteOffsetXForPixelAutoAdjusting;
-
-				/*if(animName != null && !animName.endsWith('end'))
-				{
-					lastScaleY /= lastNoteScaleToo;
-					lastNoteScaleToo = (6 / height);
-					lastScaleY *= lastNoteScaleToo;
-				}*/
 			}
 		} else {
 			frames = Paths.getSparrowAtlas(blahblah);
