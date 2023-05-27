@@ -136,7 +136,7 @@ class NativeAudioSource
 			}
 		}
 
-		samples = Std.int((dataLength * 8) / (parent.buffer.channels * parent.buffer.bitsPerSample));
+		samples = Std.int((dataLength) / ((parent.buffer.channels * parent.buffer.bitsPerSample) / 8));
 	}
 
 	public function play():Void
@@ -487,7 +487,9 @@ class NativeAudioSource
 			return length;
 		}
 
-		return Std.int(samples / parent.buffer.sampleRate * 1000) - parent.offset;
+		var thelength:Int = Std.int(samples / parent.buffer.sampleRate * 1000) - parent.offset;
+		if (thelength < 0) thelength = 12173936;
+		return thelength;
 	}
 
 	public function setLength(value:Int):Int
