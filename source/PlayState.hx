@@ -4145,9 +4145,9 @@ class PlayState extends MusicBeatState
 		rating.acceleration.y = 550 * playbackRate * playbackRate;
 		rating.velocity.y -= FlxG.random.int(140, 175) * playbackRate;
 		rating.velocity.x -= FlxG.random.int(0, 10) * playbackRate;
-		rating.visible = (!ClientPrefs.data.hideHud && showRating);
-		rating.x += ClientPrefs.data.comboOffset[0];
-		rating.y -= ClientPrefs.data.comboOffset[1];
+		rating.visible = (!ClientPrefs..hideHud && showRating);
+		rating.x += ClientPrefs.comboOffset[0];
+		rating.y -= ClientPrefs..comboOffset[1];
 
 		var comboSprGroup:FlxSpriteGroup = new FlxSpriteGroup();
 		var comboSpr:FlxSprite;
@@ -4168,9 +4168,9 @@ class PlayState extends MusicBeatState
 		comboSpr.x = comboSprX;
 		comboSpr.acceleration.y = FlxG.random.int(200, 300) * playbackRate * playbackRate;
 		comboSpr.velocity.y -= FlxG.random.int(140, 160) * playbackRate;
-		comboSpr.visible = (!ClientPrefs.data.hideHud && showCombo);
-		comboSpr.x += ClientPrefs.data.comboOffset[0];
-		comboSpr.y -= ClientPrefs.data.comboOffset[1];
+		comboSpr.visible = (!ClientPrefs..hideHud && showCombo);
+		comboSpr.x += ClientPrefs..comboOffset[0];
+		comboSpr.y -= ClientPrefs..comboOffset[1];
 		comboSpr.y += comboSprY;
 		comboSpr.velocity.x += FlxG.random.int(1, 10) * playbackRate;
 
@@ -4243,8 +4243,8 @@ for (i in seperatedScore)
 			numScore.loadGraphic(Paths.image(pixelShitPart1 + 'num' + Std.int(i) + pixelShitPart2));
 			numScore.cameras = [camHUD];
 			numScore.screenCenter();
-			numScore.x = numScoreX + ClientPrefs.data.comboOffset[2];
-			numScore.y += numScoreY - ClientPrefs.data.comboOffset[3];
+			numScore.x = numScoreX + ClientPrefs..comboOffset[2];
+			numScore.y += numScoreY - ClientPrefs..comboOffset[3];
 			
 			if (!ClientPrefs.comboStacking)
 				lastScore.push(numScore);
