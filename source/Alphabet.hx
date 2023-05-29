@@ -194,10 +194,6 @@ class Alphabet extends FlxSpriteGroup
 	
 			switch (itemType)
 			{
-			case "Classic":
-				y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.16);
-				x = FlxMath.lerp(x, (targetY * 20) + 90, 0.16);
-	
 			case "Vertical":
 				y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.5), 0.16);
 				x = FlxMath.lerp(x, (targetY * 0) + 308, 0.16);
@@ -221,6 +217,10 @@ class Alphabet extends FlxSpriteGroup
 	
 				if (x < -900)
 					x = -900;
+			default:
+					y = FlxMath.lerp(y, (scaledY * 120) + (FlxG.height * 0.48), 0.16);
+					x = FlxMath.lerp(x, (targetY * 20) + 90, 0.16);
+			
 			}
 		}
 		super.update(elapsed);
