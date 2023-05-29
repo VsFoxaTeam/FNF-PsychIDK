@@ -134,7 +134,6 @@ class GameplayChangersSubstate extends MusicBeatSubstate
 			optionText.scaleX = 0.8;
 			optionText.scaleY = 0.8;
 			optionText.targetY = i;
-			optionText.itemType = "Vertical";
 			grpOptions.add(optionText);
 
 			if(optionsArray[i].type == 'bool') {
