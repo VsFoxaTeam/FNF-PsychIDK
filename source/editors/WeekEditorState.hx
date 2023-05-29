@@ -56,7 +56,7 @@ class WeekEditorState extends MusicBeatState
 
 	override function create() {
 		FlxG.sound.playMusic(Paths.music('breakfast'), 0.5);
-		
+
 		txtWeekTitle = new FlxText(FlxG.width * 0.7, 10, 0, "", 32);
 		txtWeekTitle.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, RIGHT);
 		txtWeekTitle.alpha = 0.7;
@@ -611,6 +611,8 @@ class WeekEditorFreeplayState extends MusicBeatState
 			var songText:Alphabet = new Alphabet(90, 320, weekFile.songs[i][0], true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
+			songText.menuType = "Centered";
+                songText.screenCenter(X);
 			grpSongs.add(songText);
 			songText.snapToPosition();
 
