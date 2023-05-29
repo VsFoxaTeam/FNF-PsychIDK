@@ -389,9 +389,10 @@ class Paths
 		gottenPath = gottenPath.substring(gottenPath.indexOf(':') + 1, gottenPath.length);
 		// trace(gottenPath);
 		if(!currentTrackedSounds.exists(gottenPath))
+			{
 			currentTrackedSounds.set(gottenPath, Sound.fromFile('./${gottenPath}'));
-		
-		#end
+			}
+			
 		localTrackedAssets.push(gottenPath);
 		return currentTrackedSounds.get(gottenPath);
 	}
