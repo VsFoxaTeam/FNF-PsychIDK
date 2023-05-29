@@ -150,7 +150,7 @@
 	<!-- ______________________________ Haxedefines _____________________________ -->
 
 	<!--Enable the Flixel core recording system-->
-	<!--<haxedef name="FLX_RECORD" />-->
+	<haxedef name="FLX_RECORD" />
 
 	<!--Disable the right and middle mouse buttons-->
 	<!-- <haxedef name="FLX_NO_MOUSE_ADVANCED" /> -->
@@ -173,8 +173,14 @@
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />
 
+	<!--Replace "funkin" with the name a package of Haxe classes to preserve for use by HScript.-->
+	<haxeflag name="--macro" value="include('funkin')" />
+
+	<!--Disable Dead Code Elimination-->
+	<haxeflag name="-dce no" />
+
 	<!--Allow working memory greater than 1 Gig-->
-	<!--haxedef name="HXCPP_GC_BIG_BLOCKS"-->
+	<haxedef name="HXCPP_GC_BIG_BLOCKS"/>
 	
 	<!-- Show debug traces for hxCodec -->
 	<haxedef name="HXC_DEBUG_TRACE" if="debug" />

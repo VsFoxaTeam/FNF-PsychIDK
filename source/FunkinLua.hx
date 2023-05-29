@@ -2585,6 +2585,37 @@ class FunkinLua {
 			return Paths.getTextFromFile(path, ignoreModFolders);
 		});
 
+		// JSON tools
+		Lua_helper.add_callback(lua, "parseJsonData", function(jsonStr:String, varName:String) {
+			var json = Paths.modFolders('data/' + jsonStr + '.json');
+			var foundJson:Bool;
+
+			trace(Assets.exists(json));
+
+			#if sys
+				if (FileSystem.exists(json)) {
+					foundJson = true;
+				} else {
+					luaTrace('parseJsonData: Invalid json file path!', false, false, FlxColor.RED);
+					foundJson = false;
+					return;	
+				}
+			#else
+				if (Assets.exists(json)) {
+					foundJson = true;
+				} else {
+					luaTrace('parseJsonData: Invalid json file path!', false, false, FlxColor.RED);
+					foundJson = false;
+					return;	
+				}
+			#end
+
+			if (foundJson) {
+				var parsedJson = haxe.Json.parse(File.getContent(json));				
+				PlayState.instance.variables.set(varName, parsedJson);
+			}
+		});
+
 		// DEPRECATED, DONT MESS WITH THESE SHITS, ITS JUST THERE FOR BACKWARD COMPATIBILITY
 		lua.add_callback("objectPlayAnimation", function(obj:String, name:String, forced:Bool = false, ?startFrame:Int = 0) {
 			luaTrace("objectPlayAnimation is deprecated! Use playAnim instead", false, true);
