@@ -22,6 +22,7 @@ enum Alignment
 class Alphabet extends FlxSpriteGroup
 {
 	public var text(default, set):String;
+	public var menuType(default, set):String;
 
 	public var bold:Bool = false;
 	public var letters:Array<AlphaCharacter> = [];
@@ -249,7 +250,7 @@ class Alphabet extends FlxSpriteGroup
 
 		if(letters.length > 0) rows++;
 	}
-	
+
 	inline function set_menuType(value:String)
 		{
 			if (value == 'Centered')
