@@ -26,7 +26,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.6.3-foxa'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -39,13 +39,13 @@ class MainMenuState extends MusicBeatState
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
-		#if !switch 'donate', #end
+		/*#if !switch 'donate', #end*/
 		'options'
 	];
 
 	private var versionShitInt:Int = 1;
 	private var versionShitArray:Array<Array<Dynamic>> = [// Name, Version, X, Y
-		["Psych Engine v", psychEngineVersion, null, null],
+		["Vs. Foxa Story Edition v3.0 | Psych Engine v", psychEngineVersion, null, null],
 		["Friday Night Funkin' v", Application.current.meta.get('version'), null, null]
 	];
 
@@ -218,7 +218,7 @@ class MainMenuState extends MusicBeatState
 			{
 				if (optionShit[curSelected] == 'donate')
 				{
-					CoolUtil.browserLoad('https://ninja-muffin24.itch.io/funkin');
+					CoolUtil.browserLoad('https://www.youtube.com/channel/UCu0cMjmyVBgUXSieMwbqyjA');
 				}
 				else
 				{
