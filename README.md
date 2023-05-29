@@ -1,3 +1,11 @@
+# Vs. Foxa - Story Edition 3.0
+this is foxa
+
+<img src="https://media.discordapp.net/attachments/994696415676739594/1015383787657498634/1cdff2fe-df54-445a-b7df-c9428302cab9-jpnddjpe.gif">
+
+say hi to foxa
+please say hi to her
+
 # Friday Night Funkin' - Psych Engine
 Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 

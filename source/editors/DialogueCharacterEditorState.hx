@@ -81,6 +81,8 @@ class DialogueCharacterEditorState extends MusicBeatState
 		camGame.bgColor = FlxColor.fromHSL(0, 0, 0.5);
 		camHUD.bgColor.alpha = 0;
 
+		FlxG.sound.playMusic(Paths.music('breakfast'), 0.5);
+
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD, false);
 		FlxG.cameras.setDefaultDrawTarget(camGame, true);
