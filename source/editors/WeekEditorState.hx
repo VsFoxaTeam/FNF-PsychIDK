@@ -611,7 +611,7 @@ class WeekEditorFreeplayState extends MusicBeatState
 			var songText:Alphabet = new Alphabet(90, 320, weekFile.songs[i][0], true);
 			songText.isMenuItem = true;
 			songText.targetY = i;
-			songText.menuType = "Centered";
+			songText.itemType = "Vertical";
                 songText.screenCenter(X);
 			grpSongs.add(songText);
 			songText.snapToPosition();
