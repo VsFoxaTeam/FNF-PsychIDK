@@ -2278,39 +2278,16 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-// for lua
-	public var scoreSeparator:String = ' | ';
-
-	// don't know if structures are accesible with lua, if not, then use hscript @BeastlyGabi
-	public var scoreDisplays = {
-		misses: true,
-		ratingPercent: true,
-		ratingName: true,
-		ratingFC: true
-	};
-
 	public function updateScore(miss:Bool = false)
 	{
-		callOnLuas('onUpdateScore', [miss]);
+		scoreTxt.text = 'Score: ' + songScore
+		+ ' | Misses: ' + songMisses
+		+ ' | Rating: ' + ratingName
+		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
 
-		var scoreText:String = 'Score: ' + songScore;
-
-		if (scoreDisplays.misses)
-			scoreText += scoreSeparator + 'Misses: ' + songMisses;
-		if (scoreDisplays.ratingName)
-			scoreText += scoreSeparator + 'Rating: ' + ratingName;
-
-		if (ratingName != null && ratingName != '?') {
-			if (scoreDisplays.ratingPercent)
-				scoreText += ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%)';
-			if (scoreDisplays.ratingFC && ratingFC != null && ratingFC != '')
-				scoreText += ' - $ratingFC';
-		}
-
-		scoreTxt.text = scoreText;
-
-		if(ClientPrefs.scoreZoom && !miss && !cpuControlled) {
-			if(scoreTxtTween != null)
+		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
+		{
+			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
 			scoreTxt.scale.x = 1.075;
@@ -2321,6 +2298,7 @@ class PlayState extends MusicBeatState
 				}
 			});
 		}
+		callOnLuas('onUpdateScore', [miss]);
 	}
 
 	public function setSongTime(time:Float)
