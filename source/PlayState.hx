@@ -1472,8 +1472,12 @@ class PlayState extends MusicBeatState
 	}
 
 	public function reloadHealthBarColors() {
-		healthBar.createFilledBar(FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]),
-			FlxColor.fromRGB(boyfriend.healthColorArray[0], boyfriend.healthColorArray[1], boyfriend.healthColorArray[2]));
+				var dadCol = dad.healthColorArray;
+		var bfCol = boyfriend.healthColorArray;
+		if (ClientPrefs.coloredHealthBar)
+			healthBar.createFilledBar(FlxColor.fromRGB(dadCol[0], dadCol[1], dadCol[2]), FlxColor.fromRGB(bfCol[0], bfCol[1], bfCol[2]));
+		else
+			healthBar.createFilledBar(0xFFFF0000, 0xFF66FF33);
 
 		healthBar.updateBar();
 	}
@@ -2274,16 +2278,39 @@ class PlayState extends MusicBeatState
 		}
 	}
 
+// for lua
+	public var scoreSeparator:String = ' | ';
+
+	// don't know if structures are accesible with lua, if not, then use hscript @BeastlyGabi
+	public var scoreDisplays = {
+		misses: true,
+		ratingPercent: true,
+		ratingName: true,
+		ratingFC: true
+	};
+
 	public function updateScore(miss:Bool = false)
 	{
-		scoreTxt.text = 'Score: ' + songScore
-		+ ' | Misses: ' + songMisses
-		+ ' | Rating: ' + ratingName
-		+ (ratingName != '?' ? ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%) - $ratingFC' : '');
+		callOnLuas('onUpdateScore', [miss]);
 
-		if(ClientPrefs.scoreZoom && !miss && !cpuControlled)
-		{
-			if(scoreTxtTween != null) {
+		var scoreText:String = 'Score: ' + songScore;
+
+		if (scoreDisplays.misses)
+			scoreText += scoreSeparator + 'Misses: ' + songMisses;
+		if (scoreDisplays.ratingName)
+			scoreText += scoreSeparator + 'Rating: ' + ratingName;
+
+		if (ratingName != null && ratingName != '?') {
+			if (scoreDisplays.ratingPercent)
+				scoreText += ' (${Highscore.floorDecimal(ratingPercent * 100, 2)}%)';
+			if (scoreDisplays.ratingFC && ratingFC != null && ratingFC != '')
+				scoreText += ' - $ratingFC';
+		}
+
+		scoreTxt.text = scoreText;
+
+		if(ClientPrefs.scoreZoom && !miss && !cpuControlled) {
+			if(scoreTxtTween != null)
 				scoreTxtTween.cancel();
 			}
 			scoreTxt.scale.x = 1.075;
@@ -2294,7 +2321,6 @@ class PlayState extends MusicBeatState
 				}
 			});
 		}
-		callOnLuas('onUpdateScore', [miss]);
 	}
 
 	public function setSongTime(time:Float)

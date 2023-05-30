@@ -71,6 +71,13 @@ class VisualsUISubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Icon Colored Health Bar',
+			"If unchecked, the health bar will have set colors\nrather than colors based on the icons.",
+			'coloredHealthBar',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Camera Zooms',
 			"If unchecked, the camera won't zoom in on a beat hit.",
 			'camZooms',

@@ -19,6 +19,7 @@ class ClientPrefs {
 	public static var shaders:Bool = true;
 	public static var framerate:Int = 60;
 	public static var cursing:Bool = true;
+	public static var coloredHealthBar = true;
 	public static var violence:Bool = true;
 	public static var camZooms:Bool = true;
 	public static var hideHud:Bool = false;
@@ -111,6 +112,7 @@ class ClientPrefs {
 		//FlxG.save.data.cursing = cursing;
 		//FlxG.save.data.violence = violence;
 		FlxG.save.data.camZooms = camZooms;
+		FlxG.save.data.coloredHealthBar = coloredHealthBar;
 		FlxG.save.data.noteOffset = noteOffset;
 		FlxG.save.data.hideHud = hideHud;
 		FlxG.save.data.arrowMode = arrowMode;
@@ -202,6 +204,8 @@ class ClientPrefs {
 		if(FlxG.save.data.noteOffset != null) {
 			noteOffset = FlxG.save.data.noteOffset;
 		}
+		if (FlxG.save.data.coloredHealthBar != null)
+			coloredHealthBar = FlxG.save.data.coloredHealthBar;
 		if(FlxG.save.data.arrowMode != null) {
 			arrowMode = FlxG.save.data.arrowMode;
 		}
